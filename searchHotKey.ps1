@@ -1,4 +1,10 @@
-﻿$src = '
+# Search Hotkeys
+# Copyright 2022,Shinji Shioda
+# CSV Output Version
+#
+
+# C# Win32API Define in PowerShell String
+$src = '
 using System;
 using System.Runtime.InteropServices;
 public static class Hotkey {
@@ -8,8 +14,11 @@ public static class Hotkey {
     public extern static int UnregisterHotKey(IntPtr hWnd, int id);
 }
 '
+# Add-Type C# code in $src
 try { Add-Type $src } catch {}
+# Add-Type System.Windows.Forms for KeysConverter class
 add-type -AssemblyName System.Windows.Forms
+# Define Modifirers & it's combination
 $ModKeys = [ordered]@{
     ALT=0x0001; 
     CTRL=0x0002; 
@@ -26,7 +35,7 @@ $ModKeys = [ordered]@{
     WIN_ALT_CL=0x0008+0x0001+0x0002;
     W_ALT_S_CL=0x0008+0x0001+0x0002+0x0004;
 }
-# $NoRepeat=0x4000;
+# Define VKey code for searching
 $Vkey=8,9,0x0c,0x0d
 $VKey+=0x13..0x39
 $Vkey+=0x41..0x5A
@@ -38,29 +47,44 @@ $Vkey+=0xDB..0xDF
 $Vkey+=0xE2,0xE5,0xE7
 #$Vkey+=(0xE2..0xE7)
 #$Vkey+=(0xE9..0xF5)
+
+# Prepare KeysConverter
 $kc= New-Object Windows.Forms.KeysConverter;
-#Write-Host -NoNewline ("-"*19)
+
+# Prepare Output string var.
 $outstring=""
+
+# Output CSV Header Line
 foreach( $M in $Modkeys.GetEnumerator() ) {
     #Write-Host -NoNewline ("{0,11}" -f $M.Key)
    $outstring +='"'+$M.Key+'",'
 }
 Write-Output ('"Code","KeyName",'+$outstring)
-$Vkey.foreach{
-    #Write-Host -NoNewline  ("{0,3:X2} {1,-15}" -f $_, $kc.ConvertToString($_))
+
+# Main Loop VKey Code - Modifiers
+$Vkey.foreach{          # Loop for VKeys
+    # build $output strings
     $outstring=""+$_+',"'+ $kc.ConvertToString($_)+'",'
-        foreach( $M in $Modkeys.GetEnumerator() ) {
+    
+        foreach( $M in $Modkeys.GetEnumerator() ) {             # Loop for Modifiers
+            # Try RegisterHotkey Function
             $r=[Hotkey]::RegisterHotKey(0,1,$M.Value,([int32]$_));
+            
+            # Check Result
             if($r -ne 0) {
-                #Write-Host -NoNewline  ("{0,11}" -f "◯");
+                # Success RegisterHotkey. Accumrate to $outstring VAR.
                 $outstring+='1,'
+                
+                # Unregister Hotkey
                 $r2=[Hotkey]::UnregisterHotKey(0,1);
             } else {
-                #Write-Host  -NoNewline ("{0,11}" -f "✖");
+                # No RegisterHotkey Fail. Accumrate to $outstring VAR.
                 $outstring+="0,"
-            }
-        }
+            }   # End if block
+        }   # Modifier Foreach statement
+        
+    # Output Current VKey's result
     Write-Output $outstring;
-}
+} # Foreach Method VKey
 
 
