@@ -7,3 +7,7 @@ WindowsのHotkeyを探すWindows PowerShellのプログラムです。Win32API�
 Execute "searchhotkeys.ps1"
 
 "searchhotkeys.ps1"を実行してください
+# Output / 出力
+CSV format text output to console.If you want to save to file, please use redirection.
+
+出力はCSV形式でテキストとして標準出力に出ます。ファイルに保存するならリダイレトを使ってください。
