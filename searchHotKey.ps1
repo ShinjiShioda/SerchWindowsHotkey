@@ -66,19 +66,20 @@ $Vkey.foreach{          # Loop for VKeys
     # build $output strings
     $outstring=""+$_+',"'+ $kc.ConvertToString($_)+'",'
     
+        # Inner Loop All Modifier combination
         foreach( $M in $Modkeys.GetEnumerator() ) {             # Loop for Modifiers
             # Try RegisterHotkey Function
             $r=[Hotkey]::RegisterHotKey(0,1,$M.Value,([int32]$_));
             
-            # Check Result
-            if($r -ne 0) {
-                # Success RegisterHotkey. Accumrate to $outstring VAR.
+            # Check Result. Result of RegisterHotkey is Not Zero?
+            if($r -ne 0) { 
+                # Yes! RegisterHotkey success. Accumrate to $outstring VAR.
                 $outstring+='1,'
                 
                 # Unregister Hotkey
                 $r2=[Hotkey]::UnregisterHotKey(0,1);
             } else {
-                # No RegisterHotkey Fail. Accumrate to $outstring VAR.
+                # No! RegisterHotkey Fail. Accumrate to $outstring VAR.
                 $outstring+="0,"
             }   # End if block
         }   # Modifier Foreach statement
@@ -86,5 +87,3 @@ $Vkey.foreach{          # Loop for VKeys
     # Output Current VKey's result
     Write-Output $outstring;
 } # Foreach Method VKey
-
-
