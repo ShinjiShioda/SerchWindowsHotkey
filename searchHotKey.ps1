@@ -37,7 +37,7 @@ $Vkey+=0xBA..0xC0
 $Vkey+=0xDB..0xDF
 $Vkey+=0xE2,0xE5
 $kc= New-Object Windows.Forms.KeysConverter;
-$CsvHeader="code,KeyName,"
+$CsvHeader='"Code","KeyName",'
 foreach( $M in $Modkeys.GetEnumerator() ) {
    $CsvHeader+='"'+($M.Key -replace '_','+') +'",'
 }
@@ -48,7 +48,7 @@ $Vkey.foreach{
         $r=[Hotkey]::RegisterHotKey(0,1,$M.Value,([int32]$_));
         $v="X"
         if($r -ne 0) { # Success register
-            $v="_"
+            $v=""
             [void][Hotkey]::UnregisterHotKey(0,1); # Unregister 
         } 
         $tempObj | Add-Member -MemberType NoteProperty -Name $M.Name -Value $v
