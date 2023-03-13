@@ -14,3 +14,6 @@ Windows PowerShellで実行するとKeyNameは英語になりますが、PowerSh
 # Output / 出力
 出力はCSV形式でテキストとして標準出力に出ます。ファイルに保存するならリダイレトを使ってください。
 
+例
+
+    .\searchHotKey.ps1 | Out-File -Encoding utf8 c:\temp\W11ver22H2Hotkey.csv
