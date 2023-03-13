@@ -12,7 +12,8 @@ try { Add-Type $src } catch {}
 add-type -AssemblyName System.Windows.Forms
 $ModKeys = [ordered]@{
     ALT=0x0001; 
-    CTRL=0x0002; 
+    CTRL=0x0002;
+    SHIFT=0x004;
     ALT_CTRL=0x0001+0x0002;
     ALT_SHIFT=0x0001+0x0004; 
     CTRL_SHIFT=0x0002+0x0004;
@@ -26,9 +27,10 @@ $ModKeys = [ordered]@{
     WIN_CTRL_SHIFT=0x0008+0x0004+0x0002;
     WIN_ALT_CTRL_SHIFT=0x0008+0x0001+0x0002+0x0004;
 }
-$Vkey=8,9,0x0c,0x0d
+$Vkey=8,9,0x0d
 $VKey+=0x13..0x15
-$VKey+=0x1b..0x2f
+$VKey+=0x1b..0x1d
+$VKey+=0x20..0x2f
 # $Vkey+=0x5D         # Apps
 # $Vkey+=0x5F         # Sleep
 # $Vkey+=0xE5         # Processキー
