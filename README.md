@@ -22,3 +22,7 @@ Windows PowerShellで実行するとKeyNameは英語になりますが、PowerSh
 例
 
     .\searchHotKey.ps1 | Out-File -Encoding utf8 c:\temp\W11ver22H2Hotkey.csv
+
+# 参考ファイル
+参考のため、searchhotkeys.ps1が出力したCSVファイル（W11ver22H2Hotkey.csv）と、それを読み込んで加工したExcelのブックファイル（Hotkey.xlsx）もアップロードしてあります。
+
