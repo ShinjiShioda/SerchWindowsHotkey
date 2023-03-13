@@ -4,3 +4,4 @@ WindowsのHotkeyを探すWindows PowerShellのプログラムです。Win32API�
 "searchhotkeys.ps1"を実行してください
 # Output / 出力
 出力はCSV形式でテキストとして標準出力に出ます。ファイルに保存するならリダイレトを使ってください。
+
