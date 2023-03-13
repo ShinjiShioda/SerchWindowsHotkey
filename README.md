@@ -7,8 +7,9 @@ Windows PowerShellで実行するとKeyNameは英語になりますが、PowerSh
 
 参考
 
-    - [Runtime crash due to localization and the way designer serializes keyboard shortcuts · Issue #2886 · dotnet/winforms](https://github.com/dotnet/winforms/issues/2886)
-    - [_LOC_ Don't translate Home, Backspace, End and Enter keys in KeysConverter for Japanese. · Issue #8440 · dotnet/winforms](https://github.com/dotnet/winforms/issues/8440)
+[Runtime crash due to localization and the way designer serializes keyboard shortcuts · Issue #2886 · dotnet/winforms](https://github.com/dotnet/winforms/issues/2886)
+
+[Don't translate Home, Backspace, End and Enter keys in KeysConverter for Japanese. · Issue #8440 · dotnet/winforms](https://github.com/dotnet/winforms/issues/8440)
 
 # Output / 出力
 出力はCSV形式でテキストとして標準出力に出ます。ファイルに保存するならリダイレトを使ってください。
